@@ -42,7 +42,7 @@ remove_unusualwords = lambda x: ' '.join(word for word in x.split() if len(word)
 
 lower_case = lambda x : x.lower()
 
-stop_words = set(nltk.corpus.stopwords.words('english'))
+stop_words = set(nltk.corpus.stopwords.words('english'))-{'what', 'who', 'where', 'when', 'why', 'how'}
 remove_stopwords = lambda x: ' '.join(word for word in x.split() if word not in stop_words)
 
 ps = PorterStemmer()
