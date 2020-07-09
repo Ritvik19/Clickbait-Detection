@@ -9,7 +9,7 @@ from sklearn.metrics import log_loss, roc_auc_score
 from sklearn.metrics import f1_score, precision_score, recall_score, accuracy_score, confusion_matrix
 from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import normalize
-from imblearn.over_sampling import SMOTE
+from imblearn.over_sampling import SMOTE, RandomOverSampler
 
 def train_classifier(model, feats, target, feat_names=None, labels=None, interpret=None, loss_func=log_loss, k=11, **kwargs):
     model_performance = {
@@ -23,15 +23,19 @@ def train_classifier(model, feats, target, feat_names=None, labels=None, interpr
     cm = []
     
     skf = StratifiedKFold(n_splits=k, shuffle=True, random_state=101)
-    if 'smote' in kwargs.keys() and kwargs['smote'] == True:
-        smote = SMOTE()
+
+    if 'oversample' in kwargs.keys():
+        if kwargs['oversample'] == 'random':
+            oversampler = RandomOverSampler()
+        elif kwargs['oversample'] == 'smote':
+            oversampler = SMOTE()    
 
     for train_indices, test_indices in tqdm(skf.split(feats, target)):
         X_train = feats[train_indices]
         y_train = target[train_indices]
 
-        if 'smote' in kwargs.keys() and kwargs['smote'] == True:
-            X_train, y_train = smote.fit_resample(X_train, y_train)
+        if 'oversample' in kwargs.keys():
+            X_train, y_train = oversampler.fit_resample(X_train, y_train)
         
         X_test = feats[test_indices]
         y_test = target[test_indices]

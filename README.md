@@ -23,6 +23,6 @@ Crawler : [Lord Varys](https://github.com/Ritvik19/Lord-Varys)
 Model | Accuracy | AUROC
 ---|---:|---:
 Logisitic Regression | 0.8745  | 0.9431
-Multinomimal Naive Bayes + SMOTE | 0.8565 | 0.9341
+Multinomimal Naive Bayes + Oversampling | 0.8561 | 0.9342
 Random Forest | 0.8448 | 0.9060
-Bagging Logistic Regression | 0.8754 | 0.9437 
+Bagging Logistic Regression | 0.8760  | 0.9443 
